@@ -26,11 +26,6 @@ const Edit: FC<IProps> = ({ match, history }) => {
     });
   };
 
-  const fetchContact = async () => {
-    const { data } = await requests.contact.fetch(id);
-    setContact(data);
-  };
-
   const updateContact = async () => {
     await requests.contact.update(id, contact);
     setIsSaved(true);
@@ -99,9 +94,14 @@ const Edit: FC<IProps> = ({ match, history }) => {
 
   useEffect(
     () => {
+      const fetchContact = async () => {
+        const { data } = await requests.contact.fetch(id);
+        setContact(data);
+      };
+
       fetchContact();
     },
-    [],
+    [id],
   );
 
   return (
